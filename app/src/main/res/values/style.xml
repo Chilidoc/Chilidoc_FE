@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="NoBorderButton">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:backgroundTint">@color/white</item>
+        <item name="android:textColor">@color/red</item>
+        <item name="android:paddingVertical">16dp</item>
+    </style>
+</resources>
