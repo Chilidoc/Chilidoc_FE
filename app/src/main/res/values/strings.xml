@@ -11,4 +11,5 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="have_account">Already have an account? Login</string>
+    <string name="not_have_account">Dont have an account? Create account</string>
 </resources>
