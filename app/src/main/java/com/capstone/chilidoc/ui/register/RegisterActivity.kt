@@ -9,11 +9,7 @@ import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
 import android.view.View
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.capstone.chilidoc.R
 import com.capstone.chilidoc.databinding.ActivityRegisterBinding
 import com.capstone.chilidoc.ui.login.LoginActivity
 
