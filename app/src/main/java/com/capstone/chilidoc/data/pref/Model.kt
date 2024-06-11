@@ -3,7 +3,7 @@ package com.capstone.chilidoc.data.pref
 data class UserModel(
     val email: String,
     val token: String,
-    val isLogin: Boolean,
+    val isLogin: Boolean = false
 )
 
 data class RegisterRequest(
@@ -11,4 +11,9 @@ data class RegisterRequest(
     val email: String,
     val password: String,
     val password_confirmation: String
+)
+
+data class LoginRequest(
+    val email: String,
+    val password: String
 )

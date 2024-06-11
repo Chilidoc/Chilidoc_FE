@@ -4,12 +4,12 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="slogan">ChiliDoc: Secure Your Chili</string>
-    <string name="description">We are your assistant to make it easier to analyze diseases on pepper plants.</string>
-    <string name="create_account">Create account</string>
-    <string name="login">Login</string>
-    <string name="fullname">Full name</string>
+    <string name="description">Kami adalah asisten Anda untuk memudahkan analisa penyakit pada tanaman cabai.</string>
+    <string name="create_account">Daftar</string>
+    <string name="login">Masuk</string>
+    <string name="fullname">Nama</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
-    <string name="have_account">Already have an account? Login</string>
-    <string name="not_have_account">Dont have an account? Create account</string>
+    <string name="have_account">Sudah punya akun? Masuk</string>
+    <string name="not_have_account">Belum punya akun? Daftar</string>
 </resources>
