@@ -20,7 +20,7 @@ class ApiConfig {
                 .build()
 
             val retrofit = Retrofit.Builder()
-                .baseUrl("https://api-from-cc/")
+                .baseUrl("https://chilidoc-be-xmref3of4q-et.a.run.app/api")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build()
