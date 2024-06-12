@@ -1,6 +1,5 @@
 package com.capstone.chilidoc.ui.login
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -34,7 +33,6 @@ class LoginViewModel(private val repository: Repository) : ViewModel() {
                 val errorBody = e.response()?.errorBody()?.string()
                 val errorResponse = Gson().fromJson(errorBody, LoginResponse::class.java)
                 _error.postValue(errorResponse.message)
-                Log.e("LoginViewModel", "loginUser: ${e.message}")
             }
             _isLoading.value = false
         }

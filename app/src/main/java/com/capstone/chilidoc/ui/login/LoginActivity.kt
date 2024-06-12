@@ -39,6 +39,7 @@ class LoginActivity : AppCompatActivity() {
             val email = binding.emailEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
             val loginRequest = LoginRequest(email, password)
+
             viewModel.loginUser(loginRequest)
         }
 
@@ -56,8 +57,7 @@ class LoginActivity : AppCompatActivity() {
 
                 showToast(it.message)
                 Handler(Looper.getMainLooper()).postDelayed({
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
+                    startActivity(Intent(this, MainActivity::class.java))
                     finish()
                 }, 2000)
             }
