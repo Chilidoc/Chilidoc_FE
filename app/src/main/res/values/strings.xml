@@ -13,4 +13,7 @@
     <string name="have_account">Sudah punya akun? Masuk</string>
     <string name="not_have_account">Belum punya akun? Daftar</string>
     <string name="confirm_password">Konfirmasi password</string>
+    <string name="welcome">Selamat datang</string>
+    <string name="article">Artikel</string>
+    <string name="title">Judul</string>
 </resources>

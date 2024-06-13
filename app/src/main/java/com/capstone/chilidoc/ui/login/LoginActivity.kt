@@ -51,9 +51,10 @@ class LoginActivity : AppCompatActivity() {
         }
         viewModel.loginResponse.observe(this) {
             if (it.success) {
+                val name = it.data.user.name
                 val email = it.data.user.email
                 val token = it.data.token
-                viewModel.saveSession(UserModel(email, token))
+                viewModel.saveSession(UserModel(name, email, token))
 
                 showToast(it.message)
                 Handler(Looper.getMainLooper()).postDelayed({

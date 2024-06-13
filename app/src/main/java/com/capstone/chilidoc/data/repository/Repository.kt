@@ -5,6 +5,7 @@ import com.capstone.chilidoc.data.pref.LoginRequest
 import com.capstone.chilidoc.data.pref.Preference
 import com.capstone.chilidoc.data.pref.RegisterRequest
 import com.capstone.chilidoc.data.pref.UserModel
+import com.capstone.chilidoc.data.response.ArticleResponse
 import com.capstone.chilidoc.data.response.LoginResponse
 import com.capstone.chilidoc.data.response.RegisterResponse
 import kotlinx.coroutines.flow.Flow
@@ -31,6 +32,10 @@ class Repository private constructor(
 
     suspend fun register(request: RegisterRequest): RegisterResponse {
         return apiService.registerUser(request)
+    }
+
+    suspend fun getArticles(): ArticleResponse {
+        return apiService.getArticles()
     }
 
     companion object {
