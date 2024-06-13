@@ -6,6 +6,7 @@ import com.capstone.chilidoc.data.pref.Preference
 import com.capstone.chilidoc.data.pref.RegisterRequest
 import com.capstone.chilidoc.data.pref.UserModel
 import com.capstone.chilidoc.data.response.ArticleResponse
+import com.capstone.chilidoc.data.response.DetailArticleResponse
 import com.capstone.chilidoc.data.response.LoginResponse
 import com.capstone.chilidoc.data.response.RegisterResponse
 import kotlinx.coroutines.flow.Flow
@@ -36,6 +37,10 @@ class Repository private constructor(
 
     suspend fun getArticles(): ArticleResponse {
         return apiService.getArticles()
+    }
+
+    suspend fun getDetailArticle(id: Int): DetailArticleResponse {
+        return apiService.getDetailArticle(id)
     }
 
     companion object {

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.capstone.chilidoc.data.response.DataItem
 import com.capstone.chilidoc.databinding.ItemRowArticleBinding
+import com.capstone.chilidoc.ui.home.DetailArticleActivity
 
 class ArticleAdapter : ListAdapter<DataItem, ArticleAdapter.MyViewHolder>(DIFF_CALLBACK) {
 
@@ -22,7 +23,11 @@ class ArticleAdapter : ListAdapter<DataItem, ArticleAdapter.MyViewHolder>(DIFF_C
         val article = getItem(position)
         holder.bind(article)
 
-
+        holder.itemView.setOnClickListener {
+            val intent = Intent(holder.itemView.context, DetailArticleActivity::class.java)
+            intent.putExtra("id", article.id)
+            holder.itemView.context.startActivity(intent)
+        }
     }
 
     class MyViewHolder(private val binding: ItemRowArticleBinding) :
