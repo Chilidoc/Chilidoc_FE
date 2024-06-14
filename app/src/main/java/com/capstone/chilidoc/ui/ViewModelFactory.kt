@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.capstone.chilidoc.data.repository.Repository
 import com.capstone.chilidoc.di.Injection
+import com.capstone.chilidoc.ui.account.AccountViewModel
 import com.capstone.chilidoc.ui.home.DetailArticleViewModel
 import com.capstone.chilidoc.ui.home.HomeViewModel
 import com.capstone.chilidoc.ui.login.LoginViewModel
@@ -31,6 +32,9 @@ class ViewModelFactory(private val repository: Repository) :
             }
             modelClass.isAssignableFrom(DetailArticleViewModel::class.java) -> {
                 DetailArticleViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(AccountViewModel::class.java) -> {
+                AccountViewModel(repository) as T
             }
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
