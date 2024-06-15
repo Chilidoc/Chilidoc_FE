@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">ChiliDoc</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
+    <string name="title_scan">Scan</string>
     <string name="title_account">Account</string>
     <string name="slogan">ChiliDoc: Secure Your Chili</string>
     <string name="description">Kami adalah asisten Anda untuk memudahkan analisa penyakit pada tanaman cabai.</string>
@@ -17,4 +17,8 @@
     <string name="article">Artikel</string>
     <string name="title">Judul</string>
     <string name="logout">Keluar</string>
+    <string name="image_classifier_failed">Gambar gagal klasifikasi</string>
+    <string name="analyze">Analisa</string>
+    <string name="gallery">Galeri</string>
+    <string name="camera">Kamera</string>
 </resources>
