@@ -12,15 +12,18 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.capstone.chilidoc.R
 import com.capstone.chilidoc.databinding.FragmentScanBinding
+import com.capstone.chilidoc.helper.ImageClassifierHelper
 import com.capstone.chilidoc.helper.getImageUri
+import org.tensorflow.lite.task.vision.classifier.Classifications
+import java.text.NumberFormat
 
 class ScanFragment : Fragment() {
 
     private var _binding: FragmentScanBinding? = null
-
     private val binding get() = _binding!!
-
+    private lateinit var imageClassifierHelper: ImageClassifierHelper
     private var currentImageUri: Uri? = null
 
     private val requestPermissionLauncher =
@@ -52,6 +55,11 @@ class ScanFragment : Fragment() {
 
         binding.btnGallery.setOnClickListener { startGallery() }
         binding.btnCamera.setOnClickListener { startCamera() }
+        binding.btnAnalyze.setOnClickListener {
+            currentImageUri?.let { analyzeImage(it) } ?: run {
+                showToast(getString(R.string.no_image))
+            }
+        }
 
         return root
     }
@@ -64,6 +72,7 @@ class ScanFragment : Fragment() {
     private fun startGallery() {
         launcherGallery.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
     }
+
     private val launcherGallery = registerForActivityResult(
         ActivityResultContracts.PickVisualMedia()
     ) { uri: Uri? ->
@@ -74,6 +83,7 @@ class ScanFragment : Fragment() {
             showToast("Tidak ada gambar yang dipilih")
         }
     }
+
     private fun showImage() {
         currentImageUri?.let {
             binding.ivPreview.setImageURI(it)
@@ -84,12 +94,51 @@ class ScanFragment : Fragment() {
         currentImageUri = getImageUri(requireContext())
         launcherIntentCamera.launch(currentImageUri!!)
     }
+
     private val launcherIntentCamera = registerForActivityResult(
         ActivityResultContracts.TakePicture()
     ) { isSuccess ->
         if (isSuccess) {
             showImage()
         }
+    }
+
+    private fun analyzeImage(uri: Uri) {
+        imageClassifierHelper = ImageClassifierHelper(
+            context = requireContext(),
+            classifierListener = object : ImageClassifierHelper.ClassifierListener {
+                override fun onError(error: String) {
+                    requireActivity().runOnUiThread {
+                        showToast(error)
+                    }
+                }
+
+                override fun onResults(results: List<Classifications>?) {
+                    requireActivity().runOnUiThread {
+                        results?.let { it ->
+                            if (it.isNotEmpty() && it[0].categories.isNotEmpty()) {
+                                println(it)
+                                val sortedCategories =
+                                    it[0].categories.sortedByDescending { it?.score }
+
+                                val prediction =
+                                    sortedCategories.joinToString("\n") {
+                                        "${it.label} " + NumberFormat.getPercentInstance()
+                                            .format(it.score).trim()
+                                    }
+
+                                val confidentScore =
+                                    sortedCategories[0].label + NumberFormat.getPercentInstance()
+                                        .format(sortedCategories[0].score)
+
+                                showToast(prediction)
+                            }
+                        }
+                    }
+                }
+            }
+        )
+        imageClassifierHelper.classifyStaticImage(uri)
     }
 
     private fun showToast(message: String) {

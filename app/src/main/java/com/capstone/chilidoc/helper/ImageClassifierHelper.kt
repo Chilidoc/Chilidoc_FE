@@ -1,10 +1,15 @@
 package com.capstone.chilidoc.helper
 
 import android.content.Context
+import android.graphics.BitmapFactory
+import android.net.Uri
 import com.capstone.chilidoc.R
+import org.tensorflow.lite.DataType
+import org.tensorflow.lite.support.image.TensorImage
 import org.tensorflow.lite.task.core.BaseOptions
 import org.tensorflow.lite.task.vision.classifier.Classifications
 import org.tensorflow.lite.task.vision.classifier.ImageClassifier
+import java.io.InputStream
 
 class ImageClassifierHelper(
     private var threshold: Float = 0.1f,
@@ -36,6 +41,21 @@ class ImageClassifierHelper(
         } catch (e: IllegalStateException) {
             classifierListener?.onError(context.getString(R.string.image_classifier_failed))
         }
+    }
+
+    fun classifyStaticImage(imageUri: Uri) {
+        if (imageClassifier == null) {
+            setupImageClassifier()
+        }
+
+        val inputStream: InputStream? = context.contentResolver.openInputStream(imageUri)
+        val bitmap = BitmapFactory.decodeStream(inputStream)
+
+        val tensorImage = TensorImage(DataType.FLOAT32)
+        tensorImage.load(bitmap)
+
+        val results = imageClassifier?.classify(tensorImage)
+        classifierListener?.onResults(results)
     }
 
     interface ClassifierListener {
