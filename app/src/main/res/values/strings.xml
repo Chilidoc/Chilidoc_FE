@@ -21,5 +21,11 @@
     <string name="analyze">Analisa</string>
     <string name="gallery">Galeri</string>
     <string name="camera">Kamera</string>
-    <string name="no_image">Pilih foto terlebih dahulu</string>
+    <string name="no_image">Pilih gambar terlebih dahulu</string>
+    <string name="profile">Profil</string>
+    <string name="Phone">No. HP</string>
+    <string name="Address">Alamat</string>
+    <string name="history">Riwayat</string>
+    <string name="prediction">Prediksi</string>
+    <string name="result">Hasil</string>
 </resources>

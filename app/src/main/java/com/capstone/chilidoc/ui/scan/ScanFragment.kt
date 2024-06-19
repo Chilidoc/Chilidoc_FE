@@ -1,6 +1,7 @@
 package com.capstone.chilidoc.ui.scan
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
@@ -117,7 +118,7 @@ class ScanFragment : Fragment() {
                     requireActivity().runOnUiThread {
                         results?.let { it ->
                             if (it.isNotEmpty() && it[0].categories.isNotEmpty()) {
-                                println(it)
+
                                 val sortedCategories =
                                     it[0].categories.sortedByDescending { it?.score }
 
@@ -128,17 +129,21 @@ class ScanFragment : Fragment() {
                                     }
 
                                 val confidentScore =
-                                    sortedCategories[0].label + NumberFormat.getPercentInstance()
+                                    sortedCategories[0].label + " " + NumberFormat.getPercentInstance()
                                         .format(sortedCategories[0].score)
 
-                                showToast(prediction)
+                                showToast("Analisa berhasil")
+                                val intent = Intent(requireContext(), ResultActivity::class.java)
+                                intent.putExtra("result", arrayOf(prediction, confidentScore))
+                                intent.putExtra("image", currentImageUri.toString())
+                                startActivity(intent)
                             }
                         }
                     }
                 }
             }
         )
-        imageClassifierHelper.classifyStaticImage(uri)
+        imageClassifierHelper.classifyImage(uri)
     }
 
     private fun showToast(message: String) {

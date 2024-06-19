@@ -47,9 +47,6 @@ class AccountFragment : Fragment() {
             }
         }
 
-        viewModel.isLoading.observe(viewLifecycleOwner) {
-            showLoading(it)
-        }
         viewModel.error.observe(viewLifecycleOwner) {
             showToast(it)
         }
@@ -64,9 +61,5 @@ class AccountFragment : Fragment() {
 
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-    }
-
-    private fun showLoading(isLoading: Boolean) {
-        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 }

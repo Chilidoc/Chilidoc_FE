@@ -14,9 +14,6 @@ class AccountViewModel(private val repository: Repository) : ViewModel() {
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> = _error
 
-    private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> = _isLoading
-
     fun getUser(): LiveData<UserModel> {
         return repository.getSession().asLiveData()
     }
