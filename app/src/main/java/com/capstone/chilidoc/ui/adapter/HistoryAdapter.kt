@@ -1,5 +1,6 @@
 package com.capstone.chilidoc.ui.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.capstone.chilidoc.data.response.HistoryDataItem
 import com.capstone.chilidoc.databinding.ItemRowHistoryBinding
+import com.capstone.chilidoc.ui.history.DetailHistoryActivity
 
 class HistoryAdapter: ListAdapter<HistoryDataItem, HistoryAdapter.MyViewHolder>(DIFF_CALLBACK) {
 
@@ -21,17 +23,18 @@ class HistoryAdapter: ListAdapter<HistoryDataItem, HistoryAdapter.MyViewHolder>(
         val history = getItem(position)
         holder.bind(history)
 
-//        holder.itemView.setOnClickListener {
-//            val intent = Intent(holder.itemView.context, DetailArticleActivity::class.java)
-//            intent.putExtra("id", article.id)
-//            holder.itemView.context.startActivity(intent)
-//        }
+        holder.itemView.setOnClickListener {
+            val intent = Intent(holder.itemView.context, DetailHistoryActivity::class.java)
+            intent.putExtra("id", history.id)
+            holder.itemView.context.startActivity(intent)
+        }
     }
 
     class MyViewHolder(private val binding: ItemRowHistoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(history: HistoryDataItem) {
             binding.tvHistoryTitle.text = history.disease
+            binding.tvHistoryDescription.text = history.result
             Glide.with(binding.root)
                 .load(history.imageUrl)
                 .into(binding.ivHistoryImage)

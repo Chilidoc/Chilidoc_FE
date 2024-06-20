@@ -1,4 +1,4 @@
-package com.capstone.chilidoc.ui.home
+package com.capstone.chilidoc.ui.history
 
 import android.os.Bundle
 import android.view.View
@@ -6,35 +6,37 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.capstone.chilidoc.databinding.ActivityDetailArticleBinding
+import com.capstone.chilidoc.databinding.ActivityDetailHistoryBinding
 import com.capstone.chilidoc.ui.ViewModelFactory
 
-class DetailArticleActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityDetailArticleBinding
-    private val viewModel by viewModels<DetailArticleViewModel> {
+class DetailHistoryActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityDetailHistoryBinding
+    private val viewModel by viewModels<HistoryViewModel> {
         ViewModelFactory.getInstance(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityDetailArticleBinding.inflate(layoutInflater)
+        binding = ActivityDetailHistoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         supportActionBar?.apply {
-            title = "Article Detail"
+            title = "Scan Detail"
             setDisplayHomeAsUpEnabled(true)
         }
 
         val id = intent.getIntExtra("id", 0)
-        viewModel.getDetailArticle(id)
+        viewModel.getDetailHistory(id)
 
-        viewModel.article.observe(this) {
+        viewModel.detailHistory.observe(this) {
             binding.apply {
-                tvArticleTitle.text = it.title
-                tvArticleDescription.text = it.content
+                tvDisease.text = it.disease
+                tvResult.text = it.result
+                tvPrevent.text = it.prevention
+                tvTreatment.text = it.treatment
                 Glide.with(root)
                     .load(it.imageUrl)
-                    .into(ivArticleImage)
+                    .into(ivAnalyze)
             }
         }
         viewModel.isLoading.observe(this) {

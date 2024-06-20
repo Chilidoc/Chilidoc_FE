@@ -32,15 +32,27 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
+            android:layout_marginTop="16dp"
             android:maxLines="2"
             android:text="@string/title"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
-            card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintEnd_toStartOf="@+id/ivHistoryImage"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvHistoryDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:layout_marginTop="8dp"
+            android:text="@string/description"
+            android:textSize="14sp"
+            card_view:layout_constraintEnd_toStartOf="@+id/ivHistoryImage"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@+id/tvHistoryTitle" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.scan.ResultActivity">
+    tools:context=".ui.history.DetailHistoryActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -24,42 +24,69 @@
             app:shapeAppearanceOverlay="@style/roundImageView" />
 
         <TextView
-            android:id="@+id/tvAnalyzePrediction"
+            android:id="@+id/tvDisease"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:text="@string/disease"
             android:textColor="@color/black"
             android:textSize="18sp"
-            android:text="@string/prediction"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ivAnalyze"
             app:layout_constraintTop_toTopOf="@+id/ivAnalyze" />
 
         <TextView
-            android:id="@+id/tvAnalyzeConfidence"
+            android:id="@+id/tvResult"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:textColor="@color/black"
-            android:textSize="18sp"
             android:text="@string/result"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ivAnalyze"
-            app:layout_constraintTop_toBottomOf="@+id/tvAnalyzePrediction" />
+            app:layout_constraintTop_toBottomOf="@+id/tvDisease" />
 
-        <Button
-            android:id="@+id/btnSaveResult"
-            android:layout_width="200dp"
+        <TextView
+            android:id="@+id/tvPreventTitle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="32dp"
             android:layout_marginTop="16dp"
-            android:backgroundTint="@color/red"
-            android:paddingVertical="16dp"
-            android:text="@string/next"
+            android:text="@string/prevent"
+            android:textColor="@color/black"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ivAnalyze" />
+
+        <TextView
+            android:id="@+id/tvPrevent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvPreventTitle" />
+
+        <TextView
+            android:id="@+id/tvTreatmentTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/treatment"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvPrevent" />
+
+        <TextView
+            android:id="@+id/tvTreatment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTreatmentTitle" />
 
         <ProgressBar
             android:id="@+id/progressBar"

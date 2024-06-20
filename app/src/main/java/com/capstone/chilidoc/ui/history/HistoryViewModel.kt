@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.capstone.chilidoc.data.repository.Repository
 import com.capstone.chilidoc.data.response.HistoryDataItem
+import com.capstone.chilidoc.data.response.HistoryDetailData
 import com.capstone.chilidoc.data.response.HistoryResponse
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
@@ -14,6 +15,9 @@ import retrofit2.HttpException
 class HistoryViewModel(private val repository: Repository) : ViewModel() {
     private val _historyResponse = MutableLiveData<List<HistoryDataItem>>()
     val historyResponse: LiveData<List<HistoryDataItem>> = _historyResponse
+
+    private val _detailHistory = MutableLiveData<HistoryDetailData>()
+    val detailHistory: LiveData<HistoryDetailData> = _detailHistory
 
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> = _error
@@ -32,6 +36,15 @@ class HistoryViewModel(private val repository: Repository) : ViewModel() {
                 val errorResponse = Gson().fromJson(errorBody, HistoryResponse::class.java)
                 _error.postValue(errorResponse.success.toString())
             }
+            _isLoading.value = false
+        }
+    }
+
+    fun getDetailHistory(id: Int) {
+        _isLoading.value = true
+        viewModelScope.launch {
+            val response = repository.getDetailHistory(id)
+            _detailHistory.value = response.data
             _isLoading.value = false
         }
     }

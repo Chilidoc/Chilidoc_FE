@@ -129,8 +129,7 @@ class ScanFragment : Fragment() {
                                     }
 
                                 val confidentScore =
-                                    sortedCategories[0].label + " " + NumberFormat.getPercentInstance()
-                                        .format(sortedCategories[0].score)
+                                    sortedCategories[0].label
 
                                 showToast("Analisa berhasil")
                                 val intent = Intent(requireContext(), ResultActivity::class.java)

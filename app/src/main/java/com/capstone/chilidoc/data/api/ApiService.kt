@@ -4,12 +4,14 @@ import com.capstone.chilidoc.data.pref.LoginRequest
 import com.capstone.chilidoc.data.pref.RegisterRequest
 import com.capstone.chilidoc.data.response.ArticleResponse
 import com.capstone.chilidoc.data.response.DetailArticleResponse
+import com.capstone.chilidoc.data.response.DetailHistoryResponse
 import com.capstone.chilidoc.data.response.HistoryResponse
 import com.capstone.chilidoc.data.response.LoginResponse
 import com.capstone.chilidoc.data.response.RegisterResponse
 import okhttp3.MultipartBody
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Path
@@ -36,8 +38,14 @@ interface ApiService {
     @GET("history")
     suspend fun getHistory(): HistoryResponse
 
+    @GET("history/detail/{id}")
+    suspend fun getDetailHistory(
+        @Path("id") id: Int,
+    ): DetailHistoryResponse
+
+    @Multipart
     @POST("history/create")
     suspend fun saveHistory(
         @Part file: MultipartBody.Part,
-    ): HistoryResponse
+    ): DetailHistoryResponse
 }

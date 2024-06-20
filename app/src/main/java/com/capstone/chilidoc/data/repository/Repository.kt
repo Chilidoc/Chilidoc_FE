@@ -7,10 +7,12 @@ import com.capstone.chilidoc.data.pref.RegisterRequest
 import com.capstone.chilidoc.data.pref.UserModel
 import com.capstone.chilidoc.data.response.ArticleResponse
 import com.capstone.chilidoc.data.response.DetailArticleResponse
+import com.capstone.chilidoc.data.response.DetailHistoryResponse
 import com.capstone.chilidoc.data.response.HistoryResponse
 import com.capstone.chilidoc.data.response.LoginResponse
 import com.capstone.chilidoc.data.response.RegisterResponse
 import kotlinx.coroutines.flow.Flow
+import okhttp3.MultipartBody
 
 class Repository private constructor(
     private val apiService: ApiService,
@@ -44,8 +46,16 @@ class Repository private constructor(
         return apiService.getDetailArticle(id)
     }
 
+    suspend fun saveHistory(image: MultipartBody.Part): DetailHistoryResponse {
+        return apiService.saveHistory(image)
+    }
+
     suspend fun getHistory(): HistoryResponse {
         return apiService.getHistory()
+    }
+
+    suspend fun getDetailHistory(id: Int): DetailHistoryResponse {
+        return apiService.getDetailHistory(id)
     }
 
     companion object {

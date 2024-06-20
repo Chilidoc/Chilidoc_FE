@@ -11,6 +11,7 @@ import com.capstone.chilidoc.ui.home.DetailArticleViewModel
 import com.capstone.chilidoc.ui.home.HomeViewModel
 import com.capstone.chilidoc.ui.login.LoginViewModel
 import com.capstone.chilidoc.ui.register.RegisterViewModel
+import com.capstone.chilidoc.ui.scan.ScanViewModel
 import com.capstone.chilidoc.ui.splash.SplashViewModel
 
 class ViewModelFactory(private val repository: Repository) :
@@ -39,6 +40,9 @@ class ViewModelFactory(private val repository: Repository) :
             }
             modelClass.isAssignableFrom(HistoryViewModel::class.java) -> {
                 HistoryViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(ScanViewModel::class.java) -> {
+                ScanViewModel(repository) as T
             }
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
