@@ -5,8 +5,10 @@ import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.text.Editable
 import android.text.SpannableString
 import android.text.Spanned
+import android.text.TextWatcher
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
@@ -33,23 +35,42 @@ class RegisterActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         loginPage()
 
+        nameValidation()
+        emailValidation()
+        passwordValidation()
+
         binding.btnCreateAccount.setOnClickListener {
+            val isNameValid = binding.nameTextLayout.error
+            val isEmailValid = binding.emailTextLayout.error
+            val isPasswordValid = binding.passwordTextLayout.error
+
             val name = binding.nameEditText.text.toString()
             val email = binding.emailEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
             val confirmPassword = binding.confirmPasswordEditText.text.toString()
 
-            val registerRequest = RegisterRequest(name, email, password, confirmPassword)
-            viewModel.registerUser(registerRequest)
+            if (name.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+                showToast("Lengkapi data terlebih dahulu")
+            } else if (isNameValid != null || isEmailValid != null || isPasswordValid != null) {
+                showToast("Perbaiki data terlebih dahulu")
+            } else if (password != confirmPassword) {
+                showToast("Password tidak sama")
+            } else {
+                val registerRequest = RegisterRequest(name, email, password, confirmPassword)
+                viewModel.registerUser(registerRequest)
+            }
         }
 
-        viewModel.isLoading.observe(this) {
+        viewModel.isLoading.observe(this)
+        {
             showLoading(it)
         }
-        viewModel.error.observe(this) {
+        viewModel.error.observe(this)
+        {
             showToast(it)
         }
-        viewModel.registerResponse.observe(this) {
+        viewModel.registerResponse.observe(this)
+        {
             if (it.success) {
                 showToast(it.message)
                 Handler(Looper.getMainLooper()).postDelayed({
@@ -98,6 +119,84 @@ class RegisterActivity : AppCompatActivity() {
 
         binding.tvHaveAccount.text = spannableString
         binding.tvHaveAccount.movementMethod = LinkMovementMethod.getInstance()
+    }
+
+    private fun nameValidation() {
+        binding.nameEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val name = s.toString()
+
+                binding.nameTextLayout.error = when {
+                    name.isEmpty() -> {
+                        "Nama tidak boleh kosong"
+                    }
+
+                    name.length < 5 -> {
+                        "Nama minimal 5 karakter"
+                    }
+
+                    else -> {
+                        ""
+                    }
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+    }
+
+    private fun emailValidation() {
+        binding.emailEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val email = s.toString()
+
+                binding.emailTextLayout.error = when {
+                    email.isEmpty() -> {
+                        "Email tidak boleh kosong"
+                    }
+
+                    !email.contains("@") || !email.contains(".") -> {
+                        "Email tidak valid"
+                    }
+
+                    else -> {
+                        ""
+                    }
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+    }
+
+    private fun passwordValidation() {
+        binding.passwordEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val pass = s.toString()
+
+                binding.passwordTextLayout.error = when {
+                    pass.isEmpty() -> {
+                        "Password tidak boleh kosong"
+                    }
+
+                    pass.length < 6 -> {
+                        "Password minimal 6 karakter"
+                    }
+
+                    else -> {
+                        ""
+                    }
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
     }
 
     private fun showToast(message: String) {
